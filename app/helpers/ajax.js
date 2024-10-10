@@ -1,6 +1,7 @@
-export function ajax(props) {
+/* Añadimos async/await */
+export async function ajax(props) {
     let { url, successCallback } = props;
-    fetch(url,{"Access-Control-Allow-Origin": "*"})
+    await fetch(url,{"Access-Control-Allow-Origin": "*"})
         .then(res => res.ok ? res.json() : Promise.reject(res))
         .then(json => successCallback(json))
         .catch(err => {

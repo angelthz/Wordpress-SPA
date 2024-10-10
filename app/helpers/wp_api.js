@@ -1,6 +1,6 @@
 //https://developer.wordpress.org/rest-api/
 
-const NAME = "rollingstone";
+const NAME = "malvestida";
 const DOMAIN = `https://www.${NAME}.com`;
 const SITE = `${DOMAIN}/wp-json`;
 const API_WP = `${SITE}/wp/v2`;
