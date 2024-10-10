@@ -43,12 +43,13 @@ export async function Router() {
             peticion ajax para solicitar el post seleccionado
             endpoint: api.POST+"/id_posts"
         */
-        //generando el endpoint del post dinamicamente
-        console.warn(api.POST + "/" + window.localStorage.getItem("wpPostId"));
-
-        // $main.innerHTML = `<h2>Contenido del Post seleccionado</h2>`;
+        // ahora tomamos el id del post del objeto location.hash
+        let regx = /&post=\d+/;
+        let postId = regx.exec(location.hash)[0].replace("&post=","");
+        // console.warn(api.POST + "/" + window.localStorage.getItem("wpPostId"));
+        console.warn("Post ID: ", postId);
         await ajax({
-            url: `${api.POST}/${window.localStorage.getItem("wpPostId")}`,
+            url: `${api.POST}/${postId}`,
             successCallback: (post) => {
                 console.log(post);
                 $main.innerHTML = Post(post);
