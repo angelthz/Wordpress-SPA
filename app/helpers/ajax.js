@@ -6,7 +6,7 @@ export function ajax(props) {
         .catch(err => {
             let msg = err.statusText || "Ocurrio un error al acceder a la API";
             console.error(err);
-            document.getElementById("posts").innerHTML = `
+            document.getElementById("main").innerHTML = `
                 <div>
                 <p class="error">Error ${err.status}: ${msg}</p>
                 </div>
