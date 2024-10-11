@@ -12,14 +12,12 @@ import { Post } from "./Posts.js";
 
 export async function Router() {
     // destructuracion de location para obtener la propeiedad hash
-    let { hash } = location;
+    let { hash } = window.location;
     const $main = document.getElementById("main");
-    console.log(hash);
 
     $main.innerHTML = null;
     // validaciones
     if (!hash || hash === "#/") {
-        // $posts.innerHTML = `<h2>Seccion Home</h2>`;
         await ajax({
             url: api.POSTS,
             successCallback: (posts) => {
@@ -29,11 +27,16 @@ export async function Router() {
                 $main.innerHTML = html;
             }
         });
-
-        console.log(api.POST)
     }
     else if (hash.includes("#/search")) {
-        $main.innerHTML = `<h2>Seccion Buscar</h2>`;
+        let query = localStorage.getItem("wpSearch");
+        if(!query) return false;
+        await ajax({
+            url : `${api.SEARCH}${query}`,
+            successCallback : (result) => {
+                console.log(result)
+            }
+        })
     }
     else if (hash === "#/contacto") {
         $main.innerHTML = `<h2>Seccion Contacto</h2>`;
@@ -46,12 +49,9 @@ export async function Router() {
         // ahora tomamos el id del post del objeto location.hash
         let regx = /&post=\d+/;
         let postId = regx.exec(location.hash)[0].replace("&post=","");
-        // console.warn(api.POST + "/" + window.localStorage.getItem("wpPostId"));
-        console.warn("Post ID: ", postId);
         await ajax({
             url: `${api.POST}/${postId}`,
             successCallback: (post) => {
-                console.log(post);
                 $main.innerHTML = Post(post);
             }
         });
