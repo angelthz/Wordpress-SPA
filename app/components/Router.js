@@ -2,6 +2,7 @@ import api from "../helpers/wp_api.js";
 import { ajax } from "../helpers/ajax.js";
 import { PostCard } from "./PostCard.js";
 import { Post } from "./Posts.js";
+import { SearchCard } from "./SearchCard.js";
 
 
 /* Invoacion de peticiones a realizar dependiendo de la seccion de contenido que 
@@ -21,7 +22,7 @@ export async function Router() {
         await ajax({
             url: api.POSTS,
             successCallback: (posts) => {
-                console.log(posts);
+                // console.log(posts);
                 let html = "";
                 posts.forEach(post => html += PostCard(post));
                 $main.innerHTML = html;
@@ -30,11 +31,19 @@ export async function Router() {
     }
     else if (hash.includes("#/search")) {
         let query = localStorage.getItem("wpSearch");
-        if(!query) return false;
+        if(!query){
+            document.querySelector(".loader").style.display  = "none";
+            return false;
+        }
         await ajax({
             url : `${api.SEARCH}${query}`,
             successCallback : (result) => {
-                console.log(result)
+                let html = "";
+                if(result.length === 0)
+                    html = `<p class="error">No existen resultados de busqueda para el termino: <mark>${query}</mark></p>`;
+                else
+                    result.forEach(res => html += SearchCard(res));
+                $main.innerHTML = html;
             }
         })
     }
@@ -47,8 +56,8 @@ export async function Router() {
             endpoint: api.POST+"/id_posts"
         */
         // ahora tomamos el id del post del objeto location.hash
-        let regx = /&post=\d+/;
-        let postId = regx.exec(location.hash)[0].replace("&post=","");
+        let regx = /\/post=\d+/;
+        let postId = regx.exec(location.hash)[0].replace("/post=","");
         await ajax({
             url: `${api.POST}/${postId}`,
             successCallback: (post) => {

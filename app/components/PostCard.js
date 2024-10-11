@@ -18,7 +18,7 @@ export function PostCard(props){
             <p>
                 <time datetime="${date}">${formatedDate}</time>
                 // añadiendo el id del post al href
-                <a href="#/${slug}&post=${id}" data-id="${id}">Ver publicacion</a>
+                <a href="#/${slug}/post=${id}" data-id="${id}">Ver publicacion</a>
             </p>
         </article>
     `;

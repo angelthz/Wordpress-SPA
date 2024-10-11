@@ -21,11 +21,12 @@ export function SearchForm(){
         location.hash = `#/search?=${e.target.search.value}`;
     })
 
-    document.addEventListener("focusin", e=> {
+   /*  document.addEventListener("focusin", e=> {
         if(!e.target.matches("input[type='search']")) return false;
         e.target.value = "";
         window.localStorage.removeItem("wpSearch")
-    })
+    }) */
+
     
     return $form;
 }
