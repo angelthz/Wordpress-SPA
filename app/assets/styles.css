@@ -41,11 +41,20 @@ body{
     margin: 0;
 }
 
+#load-more{
+    margin: 0 auto;
+    width: auto;
+    height: 1px;
+    background-color: red;
+    visibility: hidden;
+}
+
 .loader{
         display: block;
-        margin: 2rem auto;
+        margin: 3rem auto;
         width: 64px;
-    }
+}
+
 
 .error{
     padding: 1rem;

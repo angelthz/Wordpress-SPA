@@ -25,7 +25,8 @@ export async function Router() {
                 // console.log(posts);
                 let html = "";
                 posts.forEach(post => html += PostCard(post));
-                $main.innerHTML = html;
+                document.getElementById("main").insertAdjacentHTML("afterbegin",html);
+                document.getElementById("main").insertAdjacentHTML("afterend",`<div id="load-more"></div>`)
             }
         });
     }
@@ -43,7 +44,8 @@ export async function Router() {
                     html = `<p class="error">No existen resultados de busqueda para el termino: <mark>${query}</mark></p>`;
                 else
                     result.forEach(res => html += SearchCard(res));
-                $main.innerHTML = html;
+                document.getElementById("main").insertAdjacentHTML("afterbegin",html);
+                document.getElementById("main").insertAdjacentHTML("afterend",`<div id="load-more"></div>`)
             }
         })
     }
